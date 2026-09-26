@@ -4,33 +4,26 @@ ESP32P4Camera camera;
 
 void setup() {
   Serial.begin(115200);
-  delay(1000);
+  delay(500);
 
   Serial.println();
-  Serial.println("========================================");
-  Serial.println(" ESP32-P4 CAMERA TEST");
-  Serial.println("========================================");
+  Serial.println("ESP32P4-Camera / single capture");
 
   if (!camera.begin()) {
-    Serial.println("[ERROR] Camera initialization failed.");
-    Serial.println("Check the Arduino board options, PSRAM, the OV5647 connection, and I2C pins.");
+    Serial.println("CAMERA_INIT=FAILED");
     return;
   }
 
-  Serial.println("[OK] Camera initialized.");
-
-  ESP32P4Camera::FrameInfo frame;
-  if (!camera.captureOnce(frame)) {
-    Serial.println("[ERROR] Test capture failed.");
+  if (!camera.capture()) {
+    Serial.println("CAMERA_CAPTURE=FAILED");
     return;
   }
 
-  Serial.println("[OK] Test photo captured.");
-  Serial.print("Width     : "); Serial.println(frame.width);
-  Serial.print("Height    : "); Serial.println(frame.height);
-  Serial.print("Format    : "); Serial.println(frame.formatName);
-  Serial.print("Frame size: "); Serial.print((unsigned long)frame.size); Serial.println(" bytes");
-  Serial.println("The frame buffer is released automatically after the test.");
+  Serial.println("CAMERA_INIT=OK");
+  Serial.println("CAMERA_CAPTURE=OK");
+  camera.printInfo();
+  Serial.println("One test frame is now held in PSRAM/RAM.");
+  Serial.println("Use camera.writePPM(...) in your own sketch to export it.");
 }
 
 void loop() {

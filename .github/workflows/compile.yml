@@ -1,0 +1,11 @@
+name: compile
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  arduino:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+      - run: arduino-cli core update-index
+      - run: arduino-cli core install esp32:esp32@3.3.11
+      - run: arduino-cli compile --fqbn 'esp32:esp32:esp32p4:PSRAM=enabled,USBMode=default,ChipVariant=postv3,FlashSize=16M,PartitionScheme=app3M_fat9M_16MB' --libraries . examples/CameraTest/CameraTest.ino

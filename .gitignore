@@ -1,26 +1,9 @@
-# Arduino / build
 build/
-*.elf
-*.bin
-*.map
-*.hex
-*.eep
-*.o
-*.a
-*.d
-
-# IDE
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-
-# ESP-IDF generated files if examples are expanded later
 sdkconfig
 sdkconfig.old
-managed_components/
-dependencies.lock
-
-# Temporary
-*.log
-*.tmp
+*.bin
+*.elf
+*.map
+.vscode/
+.arduinoIDE/
+.DS_Store
